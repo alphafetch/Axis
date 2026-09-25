@@ -30,8 +30,8 @@ namespace axis {
             return v;
         }
         friend Vector3 operator*(float scalar, const Vector3& v) {
-            Vector3 v(v.x * scalar, v.y * scalar, v.z * scalar);
-            return v;
+            Vector3 vs(v.x * scalar, v.y * scalar, v.z * scalar);
+            return vs;
         }
 
         float len() const { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z)); }
