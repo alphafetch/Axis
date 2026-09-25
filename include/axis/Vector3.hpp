@@ -74,6 +74,29 @@ namespace axis {
         float dt = dot(velocity, normal);
         return velocity - (normal * 2.0f * dt);
     }
+    inline Vector3 project(const Vector3& v, const Vector3& u) {
+        float dt = dot(u, u);
+
+        if (dt == 0.0f) throw std::runtime_error("Failed to divide by zero.");
+
+        float scalar = dot(u, v) / dt;
+        return Vector3{scalar * u.x, scalar * u.y, scalar * u.z};
+    }
+    inline Vector3 reject(const Vector3& a, const Vector3& b) {
+        float dtAB = dot(a, b);
+        float dtBB = dot(b, b);
+
+        if (dtBB == 0.0f) throw std::runtime_error("Failed to divide by zero.");
+
+        float scalarFactor = dtAB / dtBB;
+
+        Vector3 rejection;
+        rejection.x = a.x - (scalarFactor * b.x);
+        rejection.y = a.y - (scalarFactor * b.y);
+        rejection.z = a.z - (scalarFactor * b.z);
+
+        return rejection;
+    }
 }
 
 #endif
