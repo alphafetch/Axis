@@ -1,6 +1,8 @@
 #ifndef AXIS_VECTOR3_HPP
 #define AXIS_VECTOR3_HPP
 
+#include <cmath>
+
 namespace axis {
     class Vector3 {
     public:
@@ -25,6 +27,8 @@ namespace axis {
             Vector3 v(this->x * scalar, this->y * scalar, this->z * scalar);
             return v;
         }
+
+        float len() { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z)); }
     };
 
     inline float dot(const Vector3& a, const Vector3& b) { return a.x*b.x + a.y*b.y + a.z*b.z; }
