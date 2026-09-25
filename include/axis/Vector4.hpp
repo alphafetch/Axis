@@ -39,6 +39,9 @@ namespace axis {
         Vector4 normalized() const {
             Vector4 v = *this;
             float len = v.len();
+
+            if (len == 0) throw std::runtime_error("Failed to divide by zero.");
+            
             v.x /= len;
             v.y /= len;
             v.z /= len;
