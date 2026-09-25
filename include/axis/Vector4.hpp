@@ -2,6 +2,7 @@
 #define AXIS_VECTOR4_HPP
 
 #include <cmath>
+#include <stdexcept>
 
 namespace axis {
     class Vector4 {
@@ -30,6 +31,27 @@ namespace axis {
 
         float len() { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w)); }
         float lensq() { return (this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w); }
+        Vector4 normalized() {
+            Vector4 v = *this;
+            float len = v.len();
+            v.x /= len;
+            v.y /= len;
+            v.z /= len;
+            v.w /= len;
+
+            return v;
+        }
+
+        void normalize() {
+            float len = this->len();
+
+            if (len == 0) throw std::runtime_error("Failed to divide by zero.");
+
+            this->x /= len;
+            this->y /= len;
+            this->z /= len;
+            this->w /= len;
+        }
     };
 
     inline float dot(const Vector4& a, const Vector4& b) { return a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w; }
