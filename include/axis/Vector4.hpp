@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <algorithm>
 
 namespace axis {
     class Vector4 {
@@ -91,6 +92,11 @@ namespace axis {
         return rejection;
     }
     inline Vector4 lerp(const Vector4& a, const Vector4& b, float t) { return a + (b - a) * t; }
+    inline Vector4 min(const Vector4& a, const Vector4& b) { return Vector4{std::min(a.x, b.x), std::min(a.y, b.y), std::min(a.z, b.z), std::min(a.w, b.w)}; }
+    inline Vector4 max(const Vector4& a, const Vector4& b) { return Vector4{std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z), std::max(a.w, b.w)}; }
+    inline Vector4 clamp(const Vector4& v, const Vector4& l, const Vector4& h) {
+        return Vector4{std::clamp(v.x, l.x, h.x), std::clamp(v.y, l.y, h.y), std::clamp(v.z, l.z, h.z), std::clamp(v.w, l.w, h.w)};
+    }
 }
 
 #endif
