@@ -11,17 +11,17 @@ namespace axis {
         Vector2(float x, float y) : x(x), y(y) {}
         Vector2() : x(0), y(0) {}
 
-        Vector2& operator+(Vector2& other) {
+        Vector2 operator+(Vector2& other) {
             Vector2 v(this->x + other.x, this->y + other.y);
             return v;
         }
 
-        Vector2& operator-(Vector2& other) {
+        Vector2 operator-(Vector2& other) {
             Vector2 v(this->x - other.x, this->y - other.y);
             return v;
         }
 
-        Vector2& operator*(float scalar) {
+        Vector2 operator*(float scalar) {
             Vector2 v(this->x * scalar, this->y * scalar);
             return v;
         }

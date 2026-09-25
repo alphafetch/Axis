@@ -11,17 +11,17 @@ namespace axis {
         Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
         Vector4() : x(0), y(0), z(0), w(0) {}
 
-        Vector4& operator+(Vector4& other) {
+        Vector4 operator+(Vector4& other) {
             Vector4 v(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
             return v;
         }
 
-        Vector4& operator-(Vector4& other) {
+        Vector4 operator-(Vector4& other) {
             Vector4 v(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
             return v;
         }
 
-        Vector4& operator*(float scalar) {
+        Vector4 operator*(float scalar) {
             Vector4 v(this->x * scalar, this->y * scalar, this->z * scalar, this->w * scalar);
             return v;
         }
