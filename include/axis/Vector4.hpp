@@ -55,6 +55,9 @@ namespace axis {
     };
 
     inline float dot(const Vector4& a, const Vector4& b) { return a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w; }
+    inline float distance(const Vector4& a, const Vector4& b) { 
+        return std::sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y) + (b.z - a.z)*(b.z - a.z) + (b.w - a.w)*(b.w - a.w));
+    }
 }
 
 #endif

@@ -63,6 +63,9 @@ namespace axis {
             a.x * b.y - a.y * b.x
         };
     }
+    inline float distance(const Vector3& a, const Vector3& b) { 
+        return std::sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y) + (b.z - a.z)*(b.z - a.z));
+    }
 }
 
 #endif
