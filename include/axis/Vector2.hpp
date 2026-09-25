@@ -87,6 +87,7 @@ namespace axis {
 
         return rejection;
     }
+    inline Vector2 lerp(const Vector2& a, const Vector2& b, float t) { return a + (b - a) * t; }
 }
 
 #endif
