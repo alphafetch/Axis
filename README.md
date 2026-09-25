@@ -1,18 +1,16 @@
 # Axis
 
-A simple, bare-bones, header-only math library built in C++.
+A simple, header-only math library built in C++.
 
 ## Features
 
-- Vectors
-  - `Vector2`, `Vector3`, `Vector4`
-- Matrices
-  - `Matrix3`, `Matrix4`
-- Quaternion
-
-> Axis is early in development — most types are currently minimal
-> (constructors and basic operators only). See [Roadmap](#roadmap--todo)
-> for what's planned.
+- Vectors — `Vector2`, `Vector3`, `Vector4`
+  - Arithmetic: `+`, `-`, `*` (scalar, both orders)
+  - `dot`, `cross` (Vector3 only), `distance`, `reflect`, `project`, `reject`, `lerp`
+  - `len`, `lensq`, `normalize`, `normalized`
+  - `min`, `max`, `clamp`
+- Matrices — `Matrix3`, `Matrix4` (stub only, see Roadmap)
+- Quaternion (stub only, see Roadmap)
 
 ## Requirements
 
@@ -62,60 +60,85 @@ int main() {
     axis::Vector3 a(1.0f, 2.0f, 3.0f);
     axis::Vector3 b(4.0f, 5.0f, 6.0f);
 
+    axis::Vector3 sum = a + b;
     float d = axis::dot(a, b);
+    float dist = axis::distance(a, b);
 }
 ```
 
 ## Usage
 
-- `Vector2`
-  ```cpp
-  axis::Vector2 myVector;
-  // More to be added to Vector2
-  ```
+### Vector2 / Vector3 / Vector4
 
-- `Vector3`
-  ```cpp
-  axis::Vector3 a(1.0f, 2.0f, 3.0f);
-  axis::Vector3 b(4.0f, 5.0f, 6.0f);
+All three vector types share the same API shape (`Vector3` additionally has `cross`):
 
-  float d = axis::dot(a, b);
-  // + and - operators are also available (see note below)
-  ```
+```cpp
+axis::Vector3 a(1.0f, 0.0f, 0.0f);
+axis::Vector3 b(0.0f, 1.0f, 0.0f);
 
-- `Vector4`
-  ```cpp
-  axis::Vector4 myVector;
-  // More to be added to Vector4
-  ```
+// Arithmetic
+axis::Vector3 sum  = a + b;
+axis::Vector3 diff = a - b;
+axis::Vector3 scaled = a * 2.0f;
+axis::Vector3 scaledOther = 2.0f * a;   // scalar on the left also works
 
-- `Matrix3`
-  ```cpp
-  axis::Matrix3 myMatrix;
-  // More to be added to Matrix3
-  ```
+// Products
+float d = axis::dot(a, b);
+axis::Vector3 c = axis::cross(a, b);    // Vector3 only
 
-- `Matrix4`
-  ```cpp
-  axis::Matrix4 m;
-  m(0, 0) = 1.0f; // element access via operator(), throws std::out_of_range if out of bounds
-  ```
+// Length
+float length = a.len();
+float lengthSq = a.lensq();
 
-- `Quaternion`
-  ```cpp
-  axis::Quaternion myQuat;
-  // More to be added to Quaternion
-  ```
+// Normalization
+axis::Vector3 unit = a.normalized();    // returns a new normalized vector
+a.normalize();                          // normalizes in place
+
+// Distance and geometry
+float dist = axis::distance(a, b);
+axis::Vector3 bounced = axis::reflect(a, b);   // reflect a vector off a normal
+axis::Vector3 proj    = axis::project(a, b);   // project a onto b
+axis::Vector3 rej     = axis::reject(a, b);    // component of a perpendicular to b
+
+// Interpolation
+axis::Vector3 mid = axis::lerp(a, b, 0.5f);
+
+// Component-wise
+axis::Vector3 lo = axis::min(a, b);
+axis::Vector3 hi = axis::max(a, b);
+axis::Vector3 clamped = axis::clamp(a, lo, hi);
+```
+
+- `Vector2` and `Vector4` support the same functions except `cross`, operating on 2 and 4 components respectively.
+
+### Matrix3
+
+```cpp
+axis::Matrix3 myMatrix;
+// Not yet implemented — see Roadmap
+```
+
+### Matrix4
+
+```cpp
+axis::Matrix4 m;
+m(0, 0) = 1.0f;   // element access via operator(), throws std::out_of_range if out of bounds
+```
+
+### Quaternion
+
+```cpp
+axis::Quaternion myQuat;
+// Not yet implemented — see Roadmap
+```
 
 ## Roadmap / TODO
 
-- Add `CMakeLists.txt` and wire up a build
-- Add `tests/` with a test framework (Catch2 planned)
-- Fill out `Vector2` / `Vector4` operations
-- Fill out `Matrix3` / `Matrix4` operations (multiply, inverse, transpose, etc.)
-- Fill out `Quaternion` operations
-- Add `constants.hpp` and `scalar.hpp` utilities
-- Add an `axis.hpp` umbrella header
+- [ ] Add `tests/` with a test framework
+- [ ] Fill out `Matrix3` / `Matrix4` operations (multiply, inverse, transpose, etc.)
+- [ ] Fill out `Quaternion` operations
+- [ ] Add `constants.hpp` and `scalar.hpp` utilities
+- [ ] Add an `axis.hpp` umbrella header
 
 ## License
 
