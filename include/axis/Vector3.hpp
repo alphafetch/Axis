@@ -29,6 +29,7 @@ namespace axis {
         }
 
         float len() { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z)); }
+        float lensq() { return (this->x*this->x) + (this->y*this->y) + (this->z*this->z); }
     };
 
     inline float dot(const Vector3& a, const Vector3& b) { return a.x*b.x + a.y*b.y + a.z*b.z; }
