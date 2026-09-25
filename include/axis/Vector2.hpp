@@ -14,24 +14,28 @@ namespace axis {
         Vector2(float x, float y) : x(x), y(y) {}
         Vector2() : x(0), y(0) {}
 
-        Vector2 operator+(Vector2& other) {
+        Vector2 operator+(const Vector2& other) const {
             Vector2 v(this->x + other.x, this->y + other.y);
             return v;
         }
 
-        Vector2 operator-(Vector2& other) {
+        Vector2 operator-(const Vector2& other) const {
             Vector2 v(this->x - other.x, this->y - other.y);
             return v;
         }
 
-        Vector2 operator*(float scalar) {
+        Vector2 operator*(float scalar) const {
             Vector2 v(this->x * scalar, this->y * scalar);
             return v;
         }
+        friend Vector2 operator*(float scalar, const Vector2& v) {
+            Vector2 vs(v.x * scalar, v.y * scalar);
+            return vs;
+        }
 
-        float len() { return std::sqrt((this->x*this->x) + (this->y*this->y)); }
-        float lensq() { return (this->x*this->x) + (this->y*this->y); }
-        Vector2 normalized() {
+        float len() const { return std::sqrt((this->x*this->x) + (this->y*this->y)); }
+        float lensq() const { return (this->x*this->x) + (this->y*this->y); }
+        Vector2 normalized() const {
             Vector2 v = *this;
             float len = v.len();
             
@@ -56,6 +60,10 @@ namespace axis {
     inline float dot(const Vector2& a, const Vector2& b) { return a.x*b.x + a.y*b.y; }
     inline float distance(const Vector2& a, const Vector2& b) { 
         return std::sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y));
+    }
+    inline Vector2 reflect(const Vector2& velocity, const Vector2& normal) {
+        float dt = dot(velocity, normal);
+        return velocity - (normal * 2.0f * dt);
     }
 }
 

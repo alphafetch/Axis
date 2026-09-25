@@ -14,24 +14,28 @@ namespace axis {
         Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
         Vector4() : x(0), y(0), z(0), w(0) {}
 
-        Vector4 operator+(Vector4& other) {
+        Vector4 operator+(const Vector4& other) const {
             Vector4 v(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
             return v;
         }
 
-        Vector4 operator-(Vector4& other) {
+        Vector4 operator-(const Vector4& other) const {
             Vector4 v(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
             return v;
         }
 
-        Vector4 operator*(float scalar) {
+        Vector4 operator*(float scalar) const {
             Vector4 v(this->x * scalar, this->y * scalar, this->z * scalar, this->w * scalar);
             return v;
         }
+        friend Vector4 operator*(float scalar, const Vector4& v) {
+            Vector4 v(v.x * scalar, v.y * scalar, v.z * scalar, v.w * scalar);
+            return v;
+        }
 
-        float len() { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w)); }
-        float lensq() { return (this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w); }
-        Vector4 normalized() {
+        float len() const { return std::sqrt((this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w)); }
+        float lensq() const { return (this->x*this->x) + (this->y*this->y) + (this->z*this->z) + (this->w*this->w); }
+        Vector4 normalized() const {
             Vector4 v = *this;
             float len = v.len();
             v.x /= len;
@@ -57,6 +61,10 @@ namespace axis {
     inline float dot(const Vector4& a, const Vector4& b) { return a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w; }
     inline float distance(const Vector4& a, const Vector4& b) { 
         return std::sqrt((b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y) + (b.z - a.z)*(b.z - a.z) + (b.w - a.w)*(b.w - a.w));
+    }
+    inline Vector4 reflect(const Vector4& velocity, const Vector4& normal) {
+        float dt = dot(velocity, normal);
+        return velocity - (normal * 2.0f * dt);
     }
 }
 
