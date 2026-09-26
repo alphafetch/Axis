@@ -18,6 +18,15 @@ namespace axis {
                 throw std::out_of_range("AXIS: Matrix3 indices out of range.");
             }
         }
+
+        static Matrix3 identity() {
+            Matrix3 m;
+            m(0, 0) = 1.0f;
+            m(1, 1) = 1.0f;
+            m(2, 2) = 1.0f;
+
+            return m;
+        }
     };
 }
 
