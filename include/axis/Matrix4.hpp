@@ -1,3 +1,10 @@
+/**
+ * @file include/axis/Matrix4.hpp
+ * @brief Matrix4 header for Axis math library
+ * 
+ * SPDX-License-Identifier: MIT
+ */
+
 #ifndef AXIS_MATRIX4_HPP
 #define AXIS_MATRIX4_HPP
 

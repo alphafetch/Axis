@@ -1,3 +1,10 @@
+/**
+ * @file include/axis/Quaternion.hpp
+ * @brief Quaternion header for Axis math library
+ * 
+ * SPDX-License-Identifier: MIT
+ */
+
 #ifndef AXIS_QUATERNION_HPP
 #define AXIS_QUATERNION_HPP
 
