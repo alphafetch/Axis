@@ -10,13 +10,38 @@ namespace axis {
     private:
         std::array<std::array<float, 4>, 4> matrix;
     public:
+        Matrix4() : matrix{{ {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {0,0,0,1} }} {}
+
         float& operator()(size_t x, size_t y) {
-            if (x <= 3 && x >= 0
-                && y <= 3 && y >= 0) {
+            if (x <= 3 && y <= 3) {
                 return matrix[x][y];
             } else {
                 throw std::out_of_range("AXIS: Matrix4 indices out of range.");
             }
+        }
+
+        const float& operator()(size_t x, size_t y) const {
+            if (x <= 2 && y <= 2) {
+                return matrix[x][y];
+            } else {
+                throw std::out_of_range("AXIS: Matrix3 indices out of range.");
+            }
+        }
+
+        const Matrix4 operator*(const Matrix4& other) const {
+            Matrix4 m;
+            
+            for (size_t i = 0; i < 4; i++) {
+                for (size_t j = 0; j < 4; j++) {
+                    float sum = 0.0f;
+                    for (size_t k = 0; k < 4; k++) {
+                        sum += (*this)(i, k) * other(k, j);
+                    }
+                    m(i, j) = sum;
+                }
+            }
+
+            return m;
         }
 
         static Matrix4 identity() {
