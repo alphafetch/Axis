@@ -44,6 +44,22 @@ namespace axis {
             return m;
         }
 
+        Matrix3 transposed() const {
+            Matrix3 m;
+
+            for (size_t i = 0; i < 3; i++) {
+                for (size_t j = 0; j < 3; j++) {
+                    m(i, j) = (*this)(j, i);
+                }
+            }
+
+            return m;
+        }
+
+        void transpose() {
+            *this = transposed();
+        }
+
         static Matrix3 identity() {
             Matrix3 m;
             m(0, 0) = 1.0f;
