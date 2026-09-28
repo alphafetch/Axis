@@ -1,3 +1,10 @@
+/**
+ * @file include/axis/Vector3.hpp
+ * @brief Vector3 header for Axis math library
+ * 
+ * SPDX-License-Identifier: MIT
+ */
+
 #ifndef AXIS_VECTOR3_HPP
 #define AXIS_VECTOR3_HPP
 
