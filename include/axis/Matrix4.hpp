@@ -28,7 +28,7 @@ namespace axis {
         }
 
         const float& operator()(size_t x, size_t y) const {
-            if (x <= 2 && y <= 2) {
+            if (x <= 3 && y <= 3) {
                 return matrix[x][y];
             } else {
                 throw std::out_of_range("AXIS: Matrix3 indices out of range.");
