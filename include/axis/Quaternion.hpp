@@ -9,9 +9,17 @@
 #define AXIS_QUATERNION_HPP
 
 namespace axis {
+    /// @brief Quaternion for representing 3D rotations (currently just the data members; no operations yet)
     class Quaternion {
     public:
-        float w, x, y, z;
+        /// @brief Scalar (real) part
+        float w;
+        /// @brief Vector (imaginary) part, i component
+        float x;
+        /// @brief Vector (imaginary) part, j component
+        float y;
+        /// @brief Vector (imaginary) part, k component
+        float z;
     };
 }
 

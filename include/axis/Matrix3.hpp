@@ -13,12 +13,19 @@
 #include <stdexcept>
 
 namespace axis {
+    /// @brief 3x3 float matrix stored in row-major order (matrix[row][column])
     class Matrix3 {
     private:
         std::array<std::array<float, 3>, 3> matrix;
     public:
+        /// @brief Initialize a Matrix3 as the identity matrix
         Matrix3() : matrix{{ {1,0,0}, {0,1,0}, {0,0,1} }} {}
 
+        /// @brief Access a mutable element of the matrix
+        /// @param x Row index (0-2)
+        /// @param y Column index (0-2)
+        /// @return Reference to the element at (row, column)
+        /// @throws std::out_of_range If either index is greater than 2
         float& operator()(size_t x, size_t y) {
             if (x <= 2 && y <= 2) {
                 return matrix[x][y];
@@ -27,6 +34,11 @@ namespace axis {
             }
         }
 
+        /// @brief Access a read-only element of the matrix
+        /// @param x Row index (0-2)
+        /// @param y Column index (0-2)
+        /// @return Const reference to the element at (row, column)
+        /// @throws std::out_of_range If either index is greater than 2
         const float& operator()(size_t x, size_t y) const {
             if (x <= 2 && y <= 2) {
                 return matrix[x][y];
@@ -35,6 +47,9 @@ namespace axis {
             }
         }
 
+        /// @brief Matrix product of this matrix and another (this * other); not commutative
+        /// @param other Right-hand-side matrix
+        /// @return The product matrix
         const Matrix3 operator*(const Matrix3& other) const {
             Matrix3 m;
             
@@ -51,6 +66,19 @@ namespace axis {
             return m;
         }
 
+        /// @brief Transpose this matrix in place (swap rows and columns)
+        void transpose() {
+            Matrix3 m = *this;
+
+            for (size_t i = 0; i < 3; i++) {
+                for (size_t j = 0; j < 3; j++) {
+                    (*this)(i, j) = m(j, i);
+                }
+            }
+        }
+
+        /// @brief Get a transposed copy of this matrix (this matrix is unchanged)
+        /// @return The transposed matrix
         Matrix3 transposed() const {
             Matrix3 m;
 
@@ -63,10 +91,8 @@ namespace axis {
             return m;
         }
 
-        void transpose() {
-            *this = transposed();
-        }
-
+        /// @brief Get the 3x3 identity matrix (1s on the diagonal, 0s elsewhere)
+        /// @return The identity matrix
         static Matrix3 identity() {
             Matrix3 m;
             m(0, 0) = 1.0f;
