@@ -12,6 +12,8 @@
 #include <cstddef>
 #include <stdexcept>
 
+#include "Vector4.hpp"
+
 namespace axis {
     /// @brief 4x4 float matrix stored in row-major order (matrix[row][column])
     class Matrix4 {
@@ -65,6 +67,15 @@ namespace axis {
             }
 
             return m;
+        }
+
+        Vector4 operator*(const Vector4& v) const {
+            return Vector4 {
+                (*this)(0, 0) * v.x + (*this)(0, 1) * v.y + (*this)(0, 2) * v.z + (*this)(0, 3) * v.w,
+                (*this)(1, 0) * v.x + (*this)(1, 1) * v.y + (*this)(1, 2) * v.z + (*this)(1, 3) * v.w,
+                (*this)(2, 0) * v.x + (*this)(2, 1) * v.y + (*this)(2, 2) * v.z + (*this)(2, 3) * v.w,
+                (*this)(3, 0) * v.x + (*this)(3, 1) * v.y + (*this)(3, 2) * v.z + (*this)(3, 3) * v.w
+            };
         }
 
         /// @brief Get a transposed copy of this matrix (this matrix is unchanged)
