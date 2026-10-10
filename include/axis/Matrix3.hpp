@@ -12,6 +12,8 @@
 #include <cstddef>
 #include <stdexcept>
 
+#include "Vector3.hpp"
+
 namespace axis {
     /// @brief 3x3 float matrix stored in row-major order (matrix[row][column])
     class Matrix3 {
@@ -64,6 +66,14 @@ namespace axis {
             }
 
             return m;
+        }
+
+        Vector3 operator*(const Vector3& v) const {
+            return Vector3 {
+                (*this)(0, 0) * v.x + (*this)(0, 1) * v.y + (*this)(0, 2) * v.z,
+                (*this)(1, 0) * v.x + (*this)(1, 1) * v.y + (*this)(1, 2) * v.z,
+                (*this)(2, 0) * v.x + (*this)(2, 1) * v.y + (*this)(2, 2) * v.z
+            };
         }
 
         /// @brief Transpose this matrix in place (swap rows and columns)
