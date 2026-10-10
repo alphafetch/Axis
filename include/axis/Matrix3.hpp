@@ -68,6 +68,9 @@ namespace axis {
             return m;
         }
 
+        /// @brief Matrix * vector with 3 dimensions
+        /// @param v The vector multiplying this matrix
+        /// @return The product Vector3
         Vector3 operator*(const Vector3& v) const {
             return Vector3 {
                 (*this)(0, 0) * v.x + (*this)(0, 1) * v.y + (*this)(0, 2) * v.z,

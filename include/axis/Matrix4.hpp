@@ -69,6 +69,9 @@ namespace axis {
             return m;
         }
 
+        /// @brief Matrix * vector with 4 dimensions
+        /// @param v The vector multiplying this matrix
+        /// @return The product Vector4
         Vector4 operator*(const Vector4& v) const {
             return Vector4 {
                 (*this)(0, 0) * v.x + (*this)(0, 1) * v.y + (*this)(0, 2) * v.z + (*this)(0, 3) * v.w,
