@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <stdexcept>
 
+// Required for matrix * vector
 #include "Vector3.hpp"
 
 namespace axis {
