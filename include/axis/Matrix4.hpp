@@ -53,6 +53,36 @@ namespace axis {
             }
         }
 
+        /// @brief Add two matrices element-wise
+        /// @param other Right-hand-side matrix
+        /// @return Sum of the two matrices
+        Matrix4 operator+(const Matrix4& other) const {
+            Matrix4 m;
+
+            for (size_t i = 0; i < 4; i++) {
+                for (size_t j = 0; j < 4; j++) {
+                    m(i, j) = (*this)(i, j) + other(i, j);
+                }
+            }
+
+            return m;
+        }
+
+        /// @brief Subtract another matrix from this one element-wise
+        /// @param other Right-hand-side matrix (subtracted from this matrix)
+        /// @return Difference (this - other)
+        Matrix4 operator-(const Matrix4& other) const {
+            Matrix4 m;
+
+            for (size_t i = 0; i < 4; i++) {
+                for (size_t j = 0; j < 4; j++) {
+                    m(i, j) = (*this)(i, j) - other(i, j);
+                }
+            }
+
+            return m;
+        }
+
         /// @brief Matrix product of this matrix and another (this * other); not commutative
         /// @param other Right-hand-side matrix
         /// @return The product matrix
