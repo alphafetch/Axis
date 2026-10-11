@@ -22,6 +22,9 @@ namespace axis {
     public:
         /// @brief Initialize a Matrix3 as the identity matrix
         Matrix3() : matrix{{ {1,0,0}, {0,1,0}, {0,0,1} }} {}
+        /// @brief Initialize a Matrix3 with set values
+        Matrix3(float a, float b, float c, float d, float e, float f, float g, float h, float i) : 
+            matrix{{ {a,b,c}, {d,e,f}, {g,h,i} }} {}
 
         /// @brief Access a mutable element of the matrix
         /// @param x Row index (0-2)
