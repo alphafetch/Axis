@@ -152,6 +152,7 @@ namespace axis {
         
     /// @brief Get the 3x3 determinant of the given matrix
     /// @param m The given matrix to find the determinant of
+    /// @return The determinant of the given matrix
     inline double determinant(const Matrix3& m) {
         double a = m(0, 0), b = m(0, 1), c = m(0, 2);
         double d = m(1, 0), e = m(1, 1), f = m(1, 2);

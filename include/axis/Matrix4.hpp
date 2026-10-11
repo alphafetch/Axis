@@ -150,6 +150,7 @@ namespace axis {
         
     /// @brief Get the 4x4 determinant of the given matrix
     /// @param m The given matrix to find the determinant of
+    /// @return The determinant of the given matrix
     inline double determinant(const Matrix4& m) {
         double a = m(0, 0), b = m(0, 1), c = m(0, 2), d = m(0, 3);
         double e = m(1, 0), f = m(1, 1), g = m(1, 2), h = m(1, 3);
