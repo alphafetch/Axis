@@ -132,7 +132,7 @@ axis::Quaternion myQuat;
 // Not yet implemented — see Roadmap
 ```
 
-## Roadmap / TODO
+## Roadmap
 
 - [ ] Add `tests/` with a test framework
 - [ ] Fill out `Matrix3` / `Matrix4` operations (multiply, inverse, transpose, etc.)
