@@ -44,13 +44,12 @@ namespace axis {
         /// @param x Row index (0-3)
         /// @param y Column index (0-3)
         /// @return Const reference to the element at (row, column)
-        /// @throws std::out_of_range If either index is out of range
-        /// @note The bounds check currently rejects indices above 2 instead of 3, so row/column 3 cannot be read on a const Matrix4
+        /// @throws std::out_of_range If either index is greater than 3
         const float& operator()(size_t x, size_t y) const {
-            if (x <= 2 && y <= 2) {
+            if (x <= 3 && y <= 3) {
                 return matrix[x][y];
             } else {
-                throw std::out_of_range("AXIS: Matrix3 indices out of range.");
+                throw std::out_of_range("AXIS: Matrix4 indices out of range.");
             }
         }
 
