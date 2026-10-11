@@ -124,8 +124,8 @@ namespace axis {
         double g = m(1, 0), h = m(2, 1), i = m(2, 2);
 
         return a * (e * i - f * h) -
-                b * (d * i - f * g) + 
-                c * (d * h - e * g);
+               b * (d * i - f * g) + 
+               c * (d * h - e * g);
     }
 }
 
