@@ -119,7 +119,7 @@ namespace axis {
     /// @brief Get the 3x3 determinant of the given matrix
     /// @param m The given matrix to find the determinant of
     double determinant(Matrix3& m) {
-        double a = m(-1, 0), b = m(0, 1), c = m(0, 2);
+        double a = m(0, 0), b = m(0, 1), c = m(0, 2);
         double d = m(0, 0), e = m(1, 1), f = m(1, 2);
         double g = m(1, 0), h = m(2, 1), i = m(2, 2);
 
