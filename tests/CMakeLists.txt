@@ -8,7 +8,9 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(axis_tests
+    test_vector2.cpp
     test_vector3.cpp
+    test_vector4.cpp
     test_matrix3.cpp
     test_matrix4.cpp
 )

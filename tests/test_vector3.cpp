@@ -204,7 +204,7 @@ TEST(Vector3, DistanceToSelfIsZero) {
     EXPECT_FLOAT_EQ(axis::distance(c, c), 0.0f);
 }
 
-TEST(Vector3, ReflectGivesCorrectRelflection) {
+TEST(Vector3, ReflectGivesCorrectReflection) {
     Vector3 a(1, -1, 0);
     Vector3 b(0, 1, 0);
     Vector3 c = axis::reflect(a, b);
