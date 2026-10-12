@@ -21,6 +21,7 @@ A small, header-only C++17 math library: 2D, 3D and 4D vectors and 3x3 and 4x4 m
   - Matrix * matrix and matrix * vector (`Matrix3 * Vector3`, `Matrix4 * Vector4`)
   - `transpose` (in place), `transposed` (copy)
   - `determinant`
+- Single-include umbrella header: `#include <axis/axis.hpp>`
 - Unit-tested with GoogleTest (see [Building and testing](#building-and-testing))
 
 ## Requirements
@@ -69,7 +70,7 @@ Axis's tests are not built when you pull it in this way.
 ## Quick Start
 
 ```cpp
-#include <axis/Vector3.hpp>
+#include <axis/axis.hpp>
 
 int main() {
     axis::Vector3 a(1.0f, 2.0f, 3.0f);
