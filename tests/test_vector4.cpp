@@ -299,3 +299,23 @@ TEST(Vector4, ReflectingTwiceReturnsOriginal) {
     EXPECT_FLOAT_EQ(c.z, r.z);
     EXPECT_FLOAT_EQ(c.w, r.w);
 }
+
+TEST(Vector4, Vector4DotProduct) {
+    EXPECT_FLOAT_EQ(axis::dot(Vector4{1, 2, 3, 4}, Vector4{5, 6, 7, 8}), 70.0f);
+}
+
+TEST(Vector4, Vector4LensqTest) {
+    EXPECT_FLOAT_EQ(Vector4(1, 2, 3, 4).lensq(), 30.0f);
+}
+
+TEST(Vector4, Vector4NormalizationTest) {
+    Vector4 c = Vector4(2, 2, 2, 2).normalized();
+    EXPECT_FLOAT_EQ(c.x, 0.5f);
+    EXPECT_FLOAT_EQ(c.y, 0.5f);
+    EXPECT_FLOAT_EQ(c.z, 0.5f);
+    EXPECT_FLOAT_EQ(c.w, 0.5f);
+}
+
+TEST(Vector4, Vector4DistanceCheck) {
+    EXPECT_FLOAT_EQ(axis::distance(Vector4(), Vector4{1, 2, 2, 0}), 3.0f);
+}
