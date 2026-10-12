@@ -230,3 +230,18 @@ TEST(Vector2, CheckClampingOnVector) {
     EXPECT_FLOAT_EQ(b.x, 0.0f);
     EXPECT_FLOAT_EQ(b.y, 5.0f);
 }
+
+TEST(Vector2, ReflectPreservesLength) {
+    Vector2 v(1, -1);
+    Vector2 n(0, 1);
+    Vector2 r = axis::reflect(v, n);
+    EXPECT_FLOAT_EQ(r.len(), v.len());
+}
+
+TEST(Vector2, ReflectingTwiceReturnsOriginal) {
+    Vector2 c(1, 2);
+    Vector2 n(1, 0);
+    Vector2 r = axis::reflect(axis::reflect(c, n), n);
+    EXPECT_FLOAT_EQ(c.x, r.x);
+    EXPECT_FLOAT_EQ(c.y, r.y);
+}
