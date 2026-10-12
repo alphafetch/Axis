@@ -245,3 +245,55 @@ TEST(Vector2, ReflectingTwiceReturnsOriginal) {
     EXPECT_FLOAT_EQ(c.x, r.x);
     EXPECT_FLOAT_EQ(c.y, r.y);
 }
+
+TEST(Vector2, LengthIgnoresSignOfComponents) {
+    EXPECT_FLOAT_EQ(Vector2(-3, -4).len(), 5.0f);
+}
+
+TEST(Vector2, MultiplyingByNegativeScalarFlipsVector) {
+    Vector2 a(-1, -2);
+    Vector2 b = a * -2;
+    Vector2 c = -2 * a;
+    EXPECT_FLOAT_EQ(b.x, 2.0f);
+    EXPECT_FLOAT_EQ(b.y, 4.0f);
+    EXPECT_FLOAT_EQ(c.x, 2.0f);
+    EXPECT_FLOAT_EQ(c.y, 4.0f);
+}
+
+TEST(Vector2, NormalizingNegativeComponentsKeepsSigns) {
+    Vector2 a(-3, -4);
+    Vector2 b = a.normalized();
+    EXPECT_FLOAT_EQ(b.x, -0.6f);
+    EXPECT_FLOAT_EQ(b.y, -0.8f);
+    EXPECT_FLOAT_EQ(b.len(), 1.0f);
+}
+
+TEST(Vector2, DotProductOfOppositeVectorsIsNegative) {
+    EXPECT_FLOAT_EQ(axis::dot(Vector2{1, 0}, Vector2{-1, 0}), -1.0f);
+}
+
+TEST(Vector2, MinAndMaxWithNegativeComponents) {
+    Vector2 a(-1, 5);
+    Vector2 b(2, -3);
+    Vector2 lo = axis::min(a, b);
+    Vector2 hi = axis::max(a, b);
+    EXPECT_FLOAT_EQ(lo.x, -1.0f);
+    EXPECT_FLOAT_EQ(lo.y, -3.0f);
+    EXPECT_FLOAT_EQ(hi.x, 2.0f);
+    EXPECT_FLOAT_EQ(hi.y, 5.0f);
+}
+
+TEST(Vector2, ClampingToNegativeRange) {
+    Vector2 a(-5, 5);
+    Vector2 b = axis::clamp(a, Vector2{-10, -10}, Vector2{-1, -1});
+    EXPECT_FLOAT_EQ(b.x, -5.0f);
+    EXPECT_FLOAT_EQ(b.y, -1.0f);
+}
+
+TEST(Vector2, ReflectOffNegativeNormal) {
+    Vector2 a(-1, 1);
+    Vector2 n(0, -1);
+    Vector2 c = axis::reflect(a, n);
+    EXPECT_FLOAT_EQ(c.x, -1.0f);
+    EXPECT_FLOAT_EQ(c.y, -1.0f);
+}

@@ -319,3 +319,69 @@ TEST(Vector4, Vector4NormalizationTest) {
 TEST(Vector4, Vector4DistanceCheck) {
     EXPECT_FLOAT_EQ(axis::distance(Vector4(), Vector4{1, 2, 2, 0}), 3.0f);
 }
+
+TEST(Vector4, LengthIgnoresSignOfComponents) {
+    EXPECT_FLOAT_EQ(Vector4(-3, 0, 0, -4).len(), 5.0f);
+}
+
+TEST(Vector4, MultiplyingByNegativeScalarFlipsVector) {
+    Vector4 a(-1, -2, -3, -4);
+    Vector4 b = a * -2;
+    Vector4 c = -2 * a;
+    EXPECT_FLOAT_EQ(b.x, 2.0f);
+    EXPECT_FLOAT_EQ(b.y, 4.0f);
+    EXPECT_FLOAT_EQ(b.z, 6.0f);
+    EXPECT_FLOAT_EQ(b.w, 8.0f);
+    EXPECT_FLOAT_EQ(c.x, 2.0f);
+    EXPECT_FLOAT_EQ(c.y, 4.0f);
+    EXPECT_FLOAT_EQ(c.z, 6.0f);
+    EXPECT_FLOAT_EQ(c.w, 8.0f);
+}
+
+TEST(Vector4, NormalizingNegativeComponentsKeepsSigns) {
+    Vector4 a(0, -3, 0, -4);
+    Vector4 b = a.normalized();
+    EXPECT_FLOAT_EQ(b.x, 0.0f);
+    EXPECT_FLOAT_EQ(b.y, -0.6f);
+    EXPECT_FLOAT_EQ(b.z, 0.0f);
+    EXPECT_FLOAT_EQ(b.w, -0.8f);
+    EXPECT_FLOAT_EQ(b.len(), 1.0f);
+}
+
+TEST(Vector4, DotProductOfOppositeVectorsIsNegative) {
+    EXPECT_FLOAT_EQ(axis::dot(Vector4{0, 0, 0, 1}, Vector4{0, 0, 0, -1}), -1.0f);
+}
+
+TEST(Vector4, MinAndMaxWithNegativeComponents) {
+    Vector4 a(-1, 5, 3, -8);
+    Vector4 b(2, -3, -6, 7);
+    Vector4 lo = axis::min(a, b);
+    Vector4 hi = axis::max(a, b);
+    EXPECT_FLOAT_EQ(lo.x, -1.0f);
+    EXPECT_FLOAT_EQ(lo.y, -3.0f);
+    EXPECT_FLOAT_EQ(lo.z, -6.0f);
+    EXPECT_FLOAT_EQ(lo.w, -8.0f);
+    EXPECT_FLOAT_EQ(hi.x, 2.0f);
+    EXPECT_FLOAT_EQ(hi.y, 5.0f);
+    EXPECT_FLOAT_EQ(hi.z, 3.0f);
+    EXPECT_FLOAT_EQ(hi.w, 7.0f);
+}
+
+TEST(Vector4, ClampingToNegativeRange) {
+    Vector4 a(-5, 5, 15, -20);
+    Vector4 b = axis::clamp(a, Vector4{-10, -10, -10, -10}, Vector4{-1, -1, -1, -1});
+    EXPECT_FLOAT_EQ(b.x, -5.0f);
+    EXPECT_FLOAT_EQ(b.y, -1.0f);
+    EXPECT_FLOAT_EQ(b.z, -1.0f);
+    EXPECT_FLOAT_EQ(b.w, -10.0f);
+}
+
+TEST(Vector4, ReflectOffNegativeNormal) {
+    Vector4 a(-1, 1, 0, 2);
+    Vector4 n(0, -1, 0, 0);
+    Vector4 c = axis::reflect(a, n);
+    EXPECT_FLOAT_EQ(c.x, -1.0f);
+    EXPECT_FLOAT_EQ(c.y, -1.0f);
+    EXPECT_FLOAT_EQ(c.z, 0.0f);
+    EXPECT_FLOAT_EQ(c.w, 2.0f);
+}

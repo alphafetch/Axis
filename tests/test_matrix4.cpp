@@ -289,3 +289,23 @@ TEST(Matrix4, DeterminantOfProductWithDiagonalIsProductOfDeterminants) {
                      0, 0, 0, 5);
     EXPECT_NEAR(axis::determinant(MakeDet58() * diagonal), 6960.0f, 0.05f);
 }
+
+TEST(Matrix4, NegativeIdentityFlipsVector) {
+    Matrix4 negated(-1,  0,  0,  0,
+                     0, -1,  0,  0,
+                     0,  0, -1,  0,
+                     0,  0,  0, -1);
+    Vector4 r = negated * Vector4(1, 2, 3, 4);
+    EXPECT_FLOAT_EQ(r.x, -1.0f);
+    EXPECT_FLOAT_EQ(r.y, -2.0f);
+    EXPECT_FLOAT_EQ(r.z, -3.0f);
+    EXPECT_FLOAT_EQ(r.w, -4.0f);
+}
+
+TEST(Matrix4, DeterminantOfNegativeIdentityIsOne) {
+    Matrix4 negated(-1,  0,  0,  0,
+                     0, -1,  0,  0,
+                     0,  0, -1,  0,
+                     0,  0,  0, -1);
+    EXPECT_NEAR(axis::determinant(negated), 1.0f, kTol);
+}
