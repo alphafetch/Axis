@@ -57,7 +57,7 @@ include(FetchContent)
 FetchContent_Declare(
     axis
     GIT_REPOSITORY https://github.com/alphafetch/Axis.git
-    GIT_TAG master
+    GIT_TAG v1.0.0
 )
 FetchContent_MakeAvailable(axis)
 
