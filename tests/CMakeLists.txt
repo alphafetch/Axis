@@ -13,6 +13,7 @@ add_executable(axis_tests
     test_vector4.cpp
     test_matrix3.cpp
     test_matrix4.cpp
+    test_const_correctness.cpp
 )
 target_link_libraries(axis_tests PRIVATE axis GTest::gtest_main)
 
