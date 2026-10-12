@@ -1,6 +1,12 @@
 # Axis
 
-A simple, header-only math library built in C++.
+[![License: MIT](https://img.shields.io/github/license/alphafetch/Axis)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/alphafetch/Axis)](https://github.com/alphafetch/Axis/releases)
+![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
+![Header only](https://img.shields.io/badge/header--only-yes-brightgreen)
+![Tested with GoogleTest](https://img.shields.io/badge/tested%20with-GoogleTest-blue)
+
+A small, header-only C++17 math library: 2D, 3D and 4D vectors and 3x3 and 4x4 matrices.
 
 ## Features
 
@@ -15,12 +21,13 @@ A simple, header-only math library built in C++.
   - Matrix * matrix and matrix * vector (`Matrix3 * Vector3`, `Matrix4 * Vector4`)
   - `transpose` (in place), `transposed` (copy)
   - `determinant`
-- Quaternion (data members only, see Roadmap)
+- Unit-tested with GoogleTest (see [Building and testing](#building-and-testing))
 
 ## Requirements
 
-- Header-only, no external dependencies
 - C++17 or later (uses `std::clamp`)
+- Header-only, no external dependencies
+- To build the tests: CMake 3.14 or newer and internet access on the first configure (GoogleTest is downloaded automatically)
 
 ## Installation
 
@@ -44,9 +51,6 @@ git submodule add https://github.com/alphafetch/Axis.git external/axis
 
 ### Option 3: CMake FetchContent
 
-> Note: this option needs a `CMakeLists.txt` that defines the `axis` target,
-> which isn't in the repo yet (see Roadmap). Use Option 1 or 2 until then.
-
 ```cmake
 include(FetchContent)
 FetchContent_Declare(
@@ -58,6 +62,9 @@ FetchContent_MakeAvailable(axis)
 
 target_link_libraries(your_target PRIVATE axis)
 ```
+
+`axis` is a header-only `INTERFACE` target, so linking it just adds Axis's `include/` folder to your include path.
+Axis's tests are not built when you pull it in this way.
 
 ## Quick Start
 
@@ -117,12 +124,11 @@ axis::Vector3 hi = axis::max(a, b);
 axis::Vector3 clamped = axis::clamp(a, lo, hi);
 ```
 
-- `Vector2` and `Vector4` support the same functions except `cross`, operating on 2 and 4 components respectively.
+`Vector2` and `Vector4` support the same functions except `cross`, operating on 2 and 4 components respectively.
 
 ### Matrix3 / Matrix4
 
-Both matrix types share the same API shape. Storage is row-major, and
-matrix * vector treats the vector as a column (`M * v`). The example below uses `Matrix3`:
+Both matrix types share the same API shape. The example below uses `Matrix3`:
 
 ```cpp
 #include <axis/Matrix3.hpp>
@@ -152,24 +158,46 @@ float det = axis::determinant(m);
 
 `Matrix4` works the same way with 16 constructor values, `Vector4`, and `#include <axis/Matrix4.hpp>`.
 
-### Quaternion
+## Conventions and behavior
 
-```cpp
-axis::Quaternion myQuat;
-// Data members only (w, x, y, z); operations are not yet implemented, see Roadmap
+- **Storage and multiplication:** matrices are row-major, and matrix * vector treats the vector as a column (`M * v`).
+- **Points and directions:** with `Matrix4 * Vector4`, use `w = 1` for a point and `w = 0` for a direction. A translation matrix moves points but leaves directions unchanged.
+- **Errors:** `normalize`, `normalized`, `project` and `reject` throw `std::runtime_error` on a zero-length vector. Matrix element access throws `std::out_of_range` for an invalid index.
+- **Preconditions:** `reflect` expects a unit-length normal, `lerp` does not clamp `t` (values outside 0 to 1 extrapolate), and `clamp` expects each lower bound to be at most the matching upper bound.
+- **Precision:** everything uses `float`, so compare computed results with a tolerance rather than `==`.
+
+## Building and testing
+
+```bash
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
 ```
 
-## Roadmap / TODO
+- GoogleTest is downloaded automatically the first time you configure.
+- Pass `-DAXIS_BUILD_TESTS=OFF` to skip the tests.
+- `ctest --test-dir` needs CMake 3.20 or newer. On older versions, run `ctest` from inside `build/`.
+- With multi-config generators such as Visual Studio, build with `--config Debug` and run `ctest -C Debug`.
 
-- [ ] Add `CMakeLists.txt` (header-only `axis` target)
-- [ ] Add `tests/` with GoogleTest
+## Project structure
+
+```
+Axis/
+├── include/axis/     # the library (header-only)
+├── tests/            # GoogleTest unit tests
+├── CMakeLists.txt
+├── LICENSE
+└── README.md
+```
+
+## Roadmap
+
 - [ ] Matrix `inverse`
 - [ ] Matrix transform builders (translation, rotation, scale, projection, look-at)
-- [ ] Fill out `Quaternion` operations
-- [ ] Add `==`, `+=`, `-=`, `*=` and `<<` operators
-- [ ] Add `constants.hpp` and `scalar.hpp` utilities
-- [ ] Add an `axis.hpp` umbrella header
+- [ ] `Quaternion`
+- [ ] `==`, `+=`, `-=`, `*=` and `<<` operators
+- [ ] `constants.hpp` and `scalar.hpp` utilities
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License - see the [LICENSE](LICENSE) file for details.
