@@ -10,6 +10,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(axis_tests
     test_vector3.cpp
     test_matrix3.cpp
+    test_matrix4.cpp
 )
 target_link_libraries(axis_tests PRIVATE axis GTest::gtest_main)
 

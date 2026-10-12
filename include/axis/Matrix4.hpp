@@ -162,7 +162,9 @@ namespace axis {
         Matrix3 cMat3(e, f, h, i, j, l, m2, n, p);
         Matrix3 dMat3(e, f, g, i, j, k, m2, n, o);
 
-        return determinant(aMat3) - determinant(bMat3) + determinant(cMat3) - determinant(dMat3);
+        // Cofactor expansion along row 0: each entry multiplies the determinant of its minor,
+        // with alternating signs (+ - + -).
+        return a * determinant(aMat3) - b * determinant(bMat3) + c * determinant(cMat3) - d * determinant(dMat3);
     }
 }
 
