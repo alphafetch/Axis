@@ -40,8 +40,7 @@ Copy the `include/axis/` folder into your project:
 your_project/
 ├── include/
 │   └── axis/
-├── src/
-└── main.cpp
+...
 ```
 
 ### Option 2: Git submodule
