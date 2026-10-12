@@ -18,12 +18,6 @@ namespace axis {
     public:
         float x, y, z; 
         
-        /// @brief Move constructor for Vector3
-        /// @param other Vector3 to move from
-        Vector3(Vector3&& other) noexcept : x(other.x), y(other.y), z(other.z) {}
-        /// @brief Copy constructor for Vector3
-        /// @param other Vector3 to copy from
-        Vector3(const Vector3& other) : x(other.x), y(other.y), z(other.z) {}
         /// @brief Initialize a Vector3 with specified values
         /// @param x X value to initialize
         /// @param y Y value to initialize
