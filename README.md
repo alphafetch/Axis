@@ -1,7 +1,7 @@
 # Axis
 
 [![License: MIT](https://img.shields.io/github/license/alphafetch/Axis)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/alphafetch/Axis)](https://github.com/alphafetch/Axis/releases)
+[![Release](https://img.shields.io/github/v/release/alphafetch/Axis?style=flat)](https://github.com/alphafetch/Axis/releases)
 ![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
 ![Header only](https://img.shields.io/badge/header--only-yes-brightgreen)
 ![Tested with GoogleTest](https://img.shields.io/badge/tested%20with-GoogleTest-blue)
