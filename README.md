@@ -179,6 +179,8 @@ ctest --test-dir build --output-on-failure
 - `ctest --test-dir` needs CMake 3.20 or newer. On older versions, run `ctest` from inside `build/`.
 - With multi-config generators such as Visual Studio, build with `--config Debug` and run `ctest -C Debug`.
 
+Test Log as of 10/12/26: [axis_test_log.log](https://gist.github.com/alphafetch/08289371fb06a4d8202df8c7f8d18dd5)
+
 ## Project structure
 
 ```
